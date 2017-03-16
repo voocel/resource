@@ -2,8 +2,7 @@
 一个PHP资源列表，内容包括：库、框架、模板、安全、代码分析、日志、第三方库、配置工具、Web 工具、书籍、电子书、经典博文等等
 
 ## 贡献
-详细内容请查看[贡献](https://github.com/ziadoz/awesome-php/blob/master/CONTRIBUTING.md) 和 [代码管理](https://github.com/ziadoz/awesome-php/blob/master/CODE-OF-CONDUCT.md).
-[来源](https://github.com/ziadoz/awesome-php).
+详细内容请查看[贡献](https://github.com/ziadoz/awesome-php/blob/master/CONTRIBUTING.md) 和 [代码管理](https://github.com/ziadoz/awesome-php/blob/master/CODE-OF-CONDUCT.md)---[来源](https://github.com/ziadoz/awesome-php).
 ## 目录
 - [Awesome PHP](#awesome-php)
     - [依赖管理 Dependency Management](#依赖管理-dependency-management)
