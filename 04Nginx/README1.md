@@ -8,7 +8,7 @@ Nginx 有一个主线程（ master process）和几个工作线程（worker proc
 
 Nginx 及其模块的工作方式由配置文件确定。 默认情况下，配置文件名为 nginx.conf，放在 /usr/local/nginx/conf 、/etc/nginx 或者 /usr/local/etc/nginx 文件夹中。
 
-##基本命令
+##基本命令.
 
 Nginx 启动之后，可以使用以下命令控制:
 
