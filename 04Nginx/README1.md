@@ -1,4 +1,4 @@
-### 初识 Nginx
+# 初识 Nginx
 Nginx 是一个免费的，开源的，高性能的HTTP服务器和反向代理，以及IMAP / POP3代理服务器。 Nginx 以其高性能，稳定性，丰富的功能，简单的配置和低资源消耗而闻名。很多高知名度的网站都使用 Nginx，如：Netflix，GitHub，SoundCloud，MaxCDN 等。
 
 
@@ -11,7 +11,7 @@ Nginx 及其模块的工作方式由配置文件确定。 默认情况下，配�
 ## 基本命令.
 
 Nginx 启动之后，可以使用以下命令控制:
-
+~~~
 nginx -s <signal>
 其中-s意思是向主进程发送信号，signal可以为以下四个中的一个:
 
@@ -19,6 +19,7 @@ stop — 快速关闭
 quit — 优雅关闭
 reload — 重新加载配置文件
 reopen — 重新打开日志文件
+~~~
 当运行nginx -s quit时，Nginx 会等待工作进程处理完成当前请求，然后将其关闭。当你修改配置文件后，并不会立即生效，而是等待重启或者收到nginx -s reload信号。
 
 当 Nginx 收到 nginx -s reload 信号后，首先检查配置文件的语法。语法正确后，主线程会开启新的工作线程并向旧的工作线程发送关闭信号，如果语法不正确，则主线程回滚变化并继续使用旧的配置。当工作进程收到主进程的关闭信号后，会在处理完当前请求之后退出。
@@ -44,7 +45,7 @@ Web 服务器一个重要的功能是服务静态文件（图像或静态HTML页
 首先，创建 /data/www 目录，并放入 index.html，创建 /data/images 目录并在其中放置一些图片。
 
 接下来，打开配置文件。 创建一个 server 块：
-```
+```nginx
 http {
     server {
     }
@@ -54,7 +55,7 @@ http {
 加入 location 块指令到 server 中：
 
 将以下位置块添加到服务器块：
-```
+```nginx
 location / {
     root /data/www;
 }
@@ -69,7 +70,7 @@ location /images/ {
 它将匹配以/images/（/ 也匹配这样的请求，但具有较短的前缀）开始的请求。
 
 server 块的最终配置如下：
-```
+```nginx
 server {
     location / {
         root /data/www;
@@ -89,7 +90,7 @@ Nginx 的一个常见应用是将其设置为代理服务器（Proxy Server）�
 比如我们可以用一个 Nginx 实例实现对图片文件的请求使用本地文件系统，而其他请求转发到代理服务器。
 
 首先，向 Nginx 的配置文件中添加一个 server 块来定义代理服务器：
-```
+```nginx
 server {
     listen 8080;
     root /data/up1;
@@ -101,7 +102,7 @@ server {
 此服务器侦听端口8080，并将所有请求映射到本地文件系统上的 /data/up1 目录。 创建此目录并将 index.html 放入其中。 注意，root 指令放在 server 上下文中，这样 当 location 块中不含 root 指令时将使用所属 server 的 root 指令。
 
 接下来，使用上一节中的服务器配置，并将其修改为代理服务器配置。 在第一个位置块中，加上proxy_pass指令：
-```
+```nginx
 server {
     location / {
            # proxy_pass指令的参数为：协议+主机名+端口号
@@ -114,7 +115,7 @@ server {
 }
 ```
 修改第二个 匹配 /images/ 前缀的 location 块，使其与请求图像文件的扩展名相匹配：
-```
+``` nginx
 location ~ \.(gif|jpg|png)$ {
     root /data/images;
 }
@@ -124,7 +125,7 @@ location ~ \.(gif|jpg|png)$ {
 当 Nginx 选择一个 location 块来处理请求时，它首先检查指定 location 块的前缀，记住具有最长前缀的 location 块，然后检查正则表达式。 如果与正则表达式匹配， Nginx 选择此 location 块，否则，选择先前记住的 location 块。
 
 代理服务器的最终配置如下：
-```
+```nginx
 server {
     location / {
         proxy_pass http://localhost:8080/;
@@ -144,7 +145,7 @@ server {
 Nginx 可用于将请求路由到 FastCGI 服务器。快速通用网关接口（Fast Common Gateway Interface／FastCGI）是一种让交互程序与Web服务器通信的协议。因此 Nginx 可以将请求路由到 FastCGI 运行的应用程序，如 PHP 程序。
 
 使用 FastCGI 服务器的最基本的 Nginx 配置包括使用 fastcgi_pass 指令而不是 proxy_pass 指令，以及使用 fastcgi_param 指令来设置传递给 FastCGI 服务器的参数。 假设FastCGI服务器可在 localhost:9000 上访问。 以上一节中的代理服务器配置为基础，使用fastcgi_pass指令替换proxy_pass指令，并将参数更改为 localhost:9000 。 在 PHP 中， SCRIPT_FILENAME 参数用于确定脚本名称，而 QUERY_STRING 参数用于传递请求参数。 生成的配置将是：
-```
+```nginx
 server {
     location / {
         fastcgi_pass  localhost:9000;

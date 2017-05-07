@@ -1,4 +1,4 @@
-### 将 Nginx 配置为Web服务器
+# 将 Nginx 配置为Web服务器
 抽象来说，将 Nginx 配置为 Web 服务器就是定义处理哪些 URLS 和如何处理这些URLS 对应的请求。具体来说，就是定义一些虚拟服务器（Virtual Servers），控制具有特定 IP 和域名的请求。
 
 更具体的来说， Nginx 通过定义一系列 locations 来控制对 URIS 的选择。每一个 location 定义了对映射到自己的请求的处理场景：返回一个文件或者代理请求，或者根据不同的错误代码返回不同的错误页面。另外，根据 URI 的不同，请求也可以被重定向到其它 server 或者 location 。
@@ -80,15 +80,15 @@ server {
 即优先级：api.lufficc.com > *.lufficc.com > api.* > 正则。
 
 如果 Host 头部不匹配任何一个 server_name ,Nginx 将请求路由到默认虚拟服务器。默认虚拟服务器是指：nginx.conf 文件中第一个 server 或者 显式用 default_server 声明：
-
+```nginx
 server {
     listen      80 default_server;
     ...
 }
-
+```
 ## 配置 location
 
-# URI 与 location 参数的匹配
+### URI 与 location 参数的匹配
 当选择好 server 之后，Nginx 会根据 URIs 选择合适的 location 来决定代理请求或者返回文件。
 
 location 指令接受两种类型的参数：
@@ -124,7 +124,7 @@ location = / {
     ...
 }
 ```
-# 静态文件和代理
+### 静态文件和代理
 location 也定义了如何处理匹配的请求：返回静态文件 或者 交给代理服务器处理。下面的例子中，第一个 location 返回 /data 目录中的静态文件，第二个 location 则将请求传递给 https://lufficc.com 域名的服务器处理：
 ```nginx
 server {
@@ -251,7 +251,7 @@ break ：停止当前上下文中 rewrite 指令的处理，并取消搜索与�
 
 ## 附录
 
-# 常用正则
+### 常用正则
 ~~~
 . ： 匹配除换行符以外的任意字符
 ? ： 重复0次或1次
@@ -265,7 +265,7 @@ $ ： 匹配字符串的结束
 [c] ： 匹配单个字符c
 [a-z]： 匹配a-z小写字母的任意一个
 ~~~
-# 全局变量
+### 全局变量
 ~~~
 $args ： #这个变量等于请求行中的参数，同$query_string
 $content_length ： 请求头中的Content-length字段。
