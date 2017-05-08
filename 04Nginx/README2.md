@@ -158,7 +158,7 @@ server{
 有很多预定义变量，例如核心的 HTTP 变量，你也可以使用 set，map 和 geo 指令定义自定义变量。 大多数变量在运行时计算，并包含与特定请求相关的信息。 例如，$remote_addr 包含客户端 IP 地址，$uri 保存当前URI值。
 
 一些常用的变量如下：
-
+~~~
 变量名称	作用
 $uri	请求中的当前URI(不带请求参数)，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名,如 /foo/bar.html。
 $arg_name	请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name
@@ -168,6 +168,7 @@ $query_string	同 $args
 $request	代表客户端的请求地址
 $request_uri	这个变量等于包含一些客户端请求参数的原始URI，它无法修改，不包含主机名，如：/cnphp/test.php?arg=freemouse。
 ...	...
+~~~
 一个简单的应用就是从 http 重定向到 https 时带上路径信息：
 ```nginx
 server{
