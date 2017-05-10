@@ -25,6 +25,7 @@ server {
     # listen [::]:80;  # 听本机的所有IPv4与IPv6地址，80端口
     # The rest of server configuration
 }
+```
 上述配置，如果不写端口号，默认使用80端口，如果不写 IP ，则监听本机所有 IP。
 
 server_name：
