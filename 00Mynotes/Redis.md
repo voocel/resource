@@ -1,7 +1,7 @@
 # 一、Redis安装
 
 ### 1、下载源码
-   wget http://download.redis.io/releases/redis-2.8.17.tar.gz
+   wget http://download.redis.io/releases/redis-3.2.8.tar.gz
 
 ### 2、将其下载到我的/lamp目录下
 
