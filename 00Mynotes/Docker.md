@@ -70,3 +70,9 @@
 
    如果返回为“net.ipv4.ip_forward = 1”则表示成功了
 ```
+
+
+# 安装 Docker-Compose
+   curl -L https://github.com/docker/compose/releases/download/1.13.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+   
+   chmod +x /usr/local/bin/docker-compose
