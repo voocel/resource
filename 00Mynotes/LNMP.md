@@ -333,5 +333,7 @@ ln -s '/usr/lib/systemd/system/php-fpm.service' '/etc/systemd/system/multi-user.
        php composer-setup.php
      //删除安装脚本
        php -r "unlink('composer-setup.php');"
+       mv composer.phar /usr/local/bin/composer
      //更换Packagist中国全量镜像，修改 composer 的全局配置文件
+     composer config -g repo.packagist composer https://packagist.phpcomposer.com
 ```
