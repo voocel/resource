@@ -4,14 +4,14 @@ cd  pecl-memcache-php7
 ./configure --with-php-config=/usr/local/php/bin/php-config
 make && make install
 
-ÔÚphp.iniµÄ×îÏÂÃæÌí¼Ó
+åœ¨php.iniçš„æœ€ä¸‹é¢æ·»åŠ 
 
 [memcache]
 extension_dir = "/usr/local/php/lib/php/extensions/no-debug-non-zts-20160306/"
 extension = "memcache.so"
 
-ÅäÖÃMemcachedµÄ²½Öè 
-Ê×ÏÈ°²×°LibeventÊÂ¼ş´¥·¢¹ÜÀíÆ÷¡£
+é…ç½®Memcachedçš„æ­¥éª¤ 
+é¦–å…ˆå®‰è£…Libeventäº‹ä»¶è§¦å‘ç®¡ç†å™¨ã€‚
 
 # wget https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
 tar vxf libevent-2.0.21-stable.tar.gz
@@ -20,7 +20,7 @@ cd libevent-2.0.21-stable
 # make && make install
 # yum install libevent-devel
 
-±àÒë°²×°Memcache
+ç¼–è¯‘å®‰è£…Memcache
 
 wget http://memcached.org/files/memcached-1.4.25.tar.gz
 tar vxf memcached-1.4.25.tar.gz
@@ -28,13 +28,13 @@ cd memcached-1.4.25
 ./configure -with-libevent=/usr/local/libevent   # ./configure
 # make && make install
 
-Æô¶¯Memcache
+å¯åŠ¨Memcache
 
-# /usr/local/bin/memcached -d -m 128 -l 127.0.0.1 -p 11211 -u root   # (128ÎªÄÚ´æ, 11211Îª¶Ë¿Ú,rootÎªÓÃ»§×é)
+# /usr/local/bin/memcached -d -m 128 -l 127.0.0.1 -p 11211 -u root   # (128ä¸ºå†…å­˜, 11211ä¸ºç«¯å£,rootä¸ºç”¨æˆ·ç»„)
 
-ÖØÆôphp-fpm £¬ÖØĞÂ¼ÓÔØnginx
+é‡å¯php-fpm ï¼Œé‡æ–°åŠ è½½nginx
 
-ä¯ÀÀÆ÷·ÃÎÊtest.php,ÎÄ¼şÄÚÈİ£¬¼ì²âÊÇ·ñÕûºÏphp
+æµè§ˆå™¨è®¿é—®test.php,æ–‡ä»¶å†…å®¹ï¼Œæ£€æµ‹æ˜¯å¦æ•´åˆphp
 
 <?php
     $mem = new memcache;
