@@ -6,6 +6,9 @@
     mv  mongodb-linux-x86_64-amazon-3.4.5 /usr/local/mongodb
 ### 4、配置环境变量
     export PATH=/usr/local/mongodb/bin:$PATH
+    或者：PATH=$PATH:/usr/local/mongodb/bin export PATH
+          source /etc/profile
+
 
 #### 5、创建目录
 *MongoDB的数据存储在data目录的db目录下，但是这个目录在安装过程不会自动创建，所以你需要手动创建data目录，并在data目录中创建db目录。
