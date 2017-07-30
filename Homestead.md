@@ -38,7 +38,7 @@ vagrant box add laravel/homestead
 vagrant box add laravel/homestead E:\homestead\homestead.box
 vagrant box list
 ```
-会反馈一条信息：laravel/homestead (virtualbox, 0)  这说明box已经添加进来了
+会反馈一条信息：`laravel/homestead (virtualbox, 0)`  这说明box已经添加进来了
 
 ### 下载官方homestead配置
 ```
@@ -86,13 +86,13 @@ sites:
 ### 修改homestead.rb文件
 如果这时候你直接在Homestead目录下启动homestead虚拟机，肯定会得到反复叫你下载virtualbox的提示，猜测这是由于手动添加的virtualbox没有保存版本信息的缘故(可以使用命令vagrant box list来查看)。所以可以通过修改Homestead/scripts/homestead.rb来解决这一个问题，找到
 
-config.vm.box_version = settings["version"] ||= ">= 2.0.0"这一行，将其修改为config.vm.box_version = settings["version"] ||= ">= 0"即可
+`config.vm.box_version = settings["version"] ||= ">= 2.0.0"`这一行，将其修改为`config.vm.box_version = settings["version"] ||= ">= 0"`即可
 
 ### 启动虚拟机
-进入Homestead目录(git clone下来里面的那个目录)，使用命令vagrant up命令启动虚拟机，可使用vagrant ssh登陆虚拟机。顺便一提，虚拟机数据库的root用户密码为secret，远程连接是用户homestead 密码 secret
-> 若提示ssh的key没有生成则执行：ssh-keygen
+进入Homestead目录(git clone下来里面的那个目录)，使用命令`vagrant up`命令启动虚拟机，可使用`vagrant ssh`登陆虚拟机。顺便一提，虚拟机数据库的root用户密码为secret，远程连接是用户homestead 密码 secret
+> 若提示ssh的key没有生成则执行：`ssh-keygen`
 >
-> 更换composer中国镜像：composer config -g repo.packagist composer https://packagist.phpcomposer.com
+> 更换composer中国镜像：`composer config -g repo.packagist composer https://packagist.phpcomposer.com`
 >
 >若访问网站出现文件未找到（No input file specified.）则需要执行：vagrant provision
 
@@ -148,7 +148,7 @@ Homestead 目录中执行 vagrant provision
 
 方式二 Homestead环境中的 serve 命令
 SSH 进入 Homestead 环境中
-执行下列命令serve domain.app /home/vagrant/Code/path/to/public/directory 80
+执行下列命令`serve domain.app /home/vagrant/Code/path/to/public/directory 80`
 
 
 ## License
