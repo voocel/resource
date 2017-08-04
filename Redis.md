@@ -1,13 +1,12 @@
 # 一、Redis安装
 
 ### 1、下载源码
-   wget http://download.redis.io/releases/redis-3.2.8.tar.gz
-
-### 2、将其下载到我的/lamp目录下
-
-### 3、解压并进入其目录
-
-### 4、编译源程序
+   wget http://download.redis.io/releases/redis-4.0.1.tar.gz
+### 2、解压
+   tar -zxvf redis-4.0.1.tar.gz
+### 3、进入其目录
+    cd redis-4.0.1
+### 4、编译安装
 ```　　
     make 
 　　cd src
@@ -15,16 +14,18 @@
 ```
 ### 5、将配置文件移动到redis目录
 ```
+   mkdir /usr/local/redis/etc
+   cd ../
    mv redis.conf /usr/local/redis/etc/redis.conf
 ```
-### 6、启动redis服务
-```  
-   /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
-```
-### 7、默认情况，Redis不是在后台运行，我们需要把redis放在后台运行
+### 6、默认情况，Redis不是在后台运行，我们需要把redis放在后台运行
 ```
 　　vim /usr/local/redis/etc/redis.conf
 　　将daemonize的值改为yes
+```
+### 7、启动redis服务
+```  
+   /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
 ```
 ### 8、客户端连接
 ```
