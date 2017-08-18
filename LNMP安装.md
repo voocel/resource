@@ -1,4 +1,4 @@
-    经过自己反复多次安装验证总结出来的，以便今后查阅
+>经过自己反复多次安装验证总结出来的，以便今后查阅
     
 ## 一、更新系统软件
 ```
@@ -337,3 +337,4 @@ ln -s '/usr/lib/systemd/system/php-fpm.service' '/etc/systemd/system/multi-user.
      //更换Packagist中国全量镜像，修改 composer 的全局配置文件
      composer config -g repo.packagist composer https://packagist.phpcomposer.com
 ```
+**推荐使用docker来部署环境，更加简单高效 [点击查看](https://github.com/voocel/docker-lnmp)**
