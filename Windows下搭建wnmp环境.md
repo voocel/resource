@@ -119,3 +119,11 @@ default-character-set=utf8
 解决方法：将D：\mysql\bin\mysqld.exe 添加到windows防火墙允许通过的应用中。*
 
 9.nginx配置很简单，想必大家都会，就不写了。可以参考在linux下部署的nginx配置部分(将站点根目录配置到www目录即可)
+
+## windows下安装composer
+下载composer.phar放置在php.exe处
+新建一个composer.bat文件，在里面写入一下内容(在已经配置php环境变量的前提下)：
+```
+@ECHO OFF  
+ php "%~dp0composer.phar" %*  
+```

@@ -338,3 +338,26 @@ ln -s '/usr/lib/systemd/system/php-fpm.service' '/etc/systemd/system/multi-user.
      composer config -g repo.packagist composer https://packagist.phpcomposer.com
 ```
 **推荐使用docker来部署环境，更加简单高效 [点击查看](https://github.com/voocel/docker-lnmp)**
+
+## 附录(创建用户)
+1.创建一个用户名为：voocel
+```
+adduser voocel
+```
+
+2.为这个用户初始化密码，Linux会判断密码复杂度，不过可以强行忽略
+```
+passwd voocel
+```
+
+3.授权
+先添加w权限：
+```
+chmod -v u+w /etc/sudoers
+vim /etc/sudoers
+voocel     ALL=(ALL)       NOPASSWD: ALL   #加入这行
+```
+保存退出，并将写权限收回：
+```
+chmod -v u-w /etc/sudoers
+```
