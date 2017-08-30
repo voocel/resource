@@ -127,3 +127,41 @@ default-character-set=utf8
 @ECHO OFF  
  php "%~dp0composer.phar" %*  
 ```
+
+## Apache 安装
+下载地址：https://www.apachelounge.com/download/VC15/binaries/httpd-2.4.27-Win64-VC15.zip
+
+1.解压到wnmp中 路径为：`E:/wnmp/Apache24`
+
+2.使用cmd进入到apache的bin目录下执行
+`httpd.exe -k install`
+来安装服务
+
+3.编辑配置文件
+```
+(1)进入conf目录，然后编辑httpd.conf
+(2)修改`Define SRVROOT "/Apache24"`为Define SRVROOT "E:/wnmp/Apache24"
+(3)修改DirectoryIndex index.html为DirectoryIndex index.php index.html     则可默认支持PHP
+(4)将;LoadModule rewrite_module modules/mod_rewrite.so前的分号去掉，开启重写功能
+(5)将;Include conf/extra/httpd-vhosts.conf前的分号去掉，开启虚拟主机
+(6)添加php模块
+LoadModule php7_module E:/wnmp/php/php7apache2_4.dll
+<IfModule php7_module> 
+    PHPIniDir "E:/wnmp/php/" 
+    AddType application/x-httpd-php .php
+    AddType application/x-httpd-php-source .phps
+</IfModule>
+(7)进入extra文件夹，编辑httpd-vhosts.conf
+在最后面添加虚拟主机：
+<VirtualHost *:80>
+    DocumentRoot "E:/wnmp/Apache24/htdocs/"
+    ServerName localhost
+	DirectoryIndex index.php
+	<Directory "E:/wnmp/Apache24/htdocs/">
+		AllowOverride All
+	</Directory>
+</VirtualHost>
+```
+重启Apache即可解析php文件了 `httpd.exe -k restart`
+
+*注意:PHP需要是TS版的,因为NTS版没有`php7apache2_4.dll`文件*
