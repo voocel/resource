@@ -153,12 +153,18 @@ LoadModule php7_module E:/wnmp/php/php7apache2_4.dll
 </IfModule>
 (7)进入extra文件夹，编辑httpd-vhosts.conf
 在最后面添加虚拟主机：
-<VirtualHost *:80>
-    DocumentRoot "E:/wnmp/Apache24/htdocs/"
+<VirtualHost *:80>    # 指定虚拟主机的IP地址和端口号
+    DocumentRoot "E:/wnmp/Apache24/htdocs/"   # 指定web文件目录
     ServerName localhost
-	DirectoryIndex index.php
-	<Directory "E:/wnmp/Apache24/htdocs/">
-		AllowOverride All
+	DirectoryIndex index.php index.html index.htm
+        ErrorLog "logs/error.log"
+        CustomLog "logs/access.log" common
+	<Directory "E:/wnmp/Apache24/htdocs/">   # 定义目录访问权限
+        Options Indexes FollowSymLinks    # 固定格式-若目录下有index则自动打开index文件，如果没有则列出文件列表
+        AllowOverride All   # 固定格式
+       # Order allow,deny  # 匹配顺序为先允许，后拒绝
+       # Allow from all   # 设置允许所有人访问 (经测试这两项配置需要注释掉才能正常启动)
+        Require all granted  # 对这个目录给予授权
 	</Directory>
 </VirtualHost>
 ```
