@@ -269,3 +269,151 @@ function ArrMd2Ud($arr) {
          }
          return 0;
      }
+
+
+
+
+    /**
+     * 日期转换成几分钟前
+     */
+    function formatTime($date) {
+        $timer = strtotime($date);
+        $diff = $_SERVER['REQUEST_TIME'] - $timer;
+        $day = floor($diff / 86400);
+        $free = $diff % 86400;
+        if($day > 0) {
+            if(15 < $day && $day <30){
+                return "半个月前";
+            }elseif(30 <= $day && $day <90){
+                return "1个月前";
+            }elseif(90 <= $day && $day <187){
+                return "3个月前";
+            }elseif(187 <= $day && $day <365){
+                return "半年前";
+            }elseif(365 <= $day){
+                return "1年前";
+            }else{
+                return $day."天前";
+            }
+        }else{
+            if($free>0){
+                $hour = floor($free / 3600);
+                $free = $free % 3600;
+                if($hour>0){
+                    return $hour."小时前";
+                }else{
+                    if($free>0){
+                        $min = floor($free / 60);
+                        $free = $free % 60;
+                    if($min>0){
+                        return $min."分钟前";
+                    }else{
+                        if($free>0){
+                            return $free."秒前";
+                        }else{
+                            return '刚刚';
+                        }
+                    }
+                    }else{
+                        return '刚刚';
+                    }
+                }
+            }else{
+                return '刚刚';
+            }
+        }
+    }
+
+    /**
+     * 截取长度
+     */
+    function getSubString($rawString,$length='100',$etc = '...',$isStripTag=true){
+        $rawString = str_replace('_baidu_page_break_tag_', '', $rawString);
+        $result = '';
+        if($isStripTag)
+            $string = html_entity_decode(trim(strip_tags($rawString)), ENT_QUOTES, 'UTF-8');
+        else
+            $string = trim($rawString);
+        $strlen = strlen($string);
+        for ($i = 0; (($i < $strlen) && ($length > 0)); $i++){
+            if ($number = strpos(str_pad(decbin(ord(substr($string, $i, 1))), 8, '0', STR_PAD_LEFT), '0'))
+            {
+                if ($length < 1.0){
+                    break;
+                }
+                $result .= substr($string, $i, $number);
+                $length -= 1.0;
+                $i += $number - 1;
+            }else{
+                $result .= substr($string, $i, 1);
+                $length -= 0.5;
+            }
+        }
+        if($isStripTag)
+            $result = htmlspecialchars($result, ENT_QUOTES, 'UTF-8');
+
+        if ($i < $strlen){
+            $result .= $etc;
+        }
+        return $result;
+    }
+
+    /**
+     * utf-8和gb2312自动转化
+     * @param unknown $string
+     * @param string $outEncoding
+     * @return unknown|string
+     */
+    function safeEncoding($string,$outEncoding = 'UTF-8')
+    {
+        $encoding = "UTF-8";
+        for($i = 0; $i < strlen ( $string ); $i ++) {
+            if (ord ( $string {$i} ) < 128)
+                continue;
+
+            if ((ord ( $string {$i} ) & 224) == 224) {
+                // 第一个字节判断通过
+                $char = $string {++ $i};
+                if ((ord ( $char ) & 128) == 128) {
+                    // 第二个字节判断通过
+                    $char = $string {++ $i};
+                    if ((ord ( $char ) & 128) == 128) {
+                        $encoding = "UTF-8";
+                        break;
+                    }
+                }
+            }
+            if ((ord ( $string {$i} ) & 192) == 192) {
+                // 第一个字节判断通过
+                $char = $string {++ $i};
+                if ((ord ( $char ) & 128) == 128) {
+                    // 第二个字节判断通过
+                    $encoding = "GB2312";
+                    break;
+                }
+            }
+        }
+
+        if (strtoupper ( $encoding ) == strtoupper ( $outEncoding ))
+            return $string;
+        else
+            return @iconv ( $encoding, $outEncoding, $string );
+    }
+
+    /** 
+    *对内容中的关键词添加链接 
+    *只处理第一次出现的关键词，对已有链接的关键不会再加链接，支持中英文 
+    *$content:string 原字符串 
+    *$keyword:string  关键词 
+    *$link:string,链接 
+    */ 
+   function yang_keyword_link($content,$keyword,$link){ 
+        //排除图片中的关键词 
+        $content = preg_replace( '|(<img[^>]*?)('.$keyword.')([^>]*?>)|U', '$1%&&&&&%$3', $content); 
+        $regEx = '/(?!((<.*?)|(<a.*?)))('.$keyword.')(?!(([^<>]*?)>)|([^>]*?<\/a>))/si'; 
+        $url='<a href="'.$link.'" target="_blank" class-og="content_guanjianci">'.$keyword.'</a>'; 
+        $content = preg_replace($regEx,$url,$content,1); 
+        //还原图片中的关键词 
+        $content=str_replace('%&&&&&%',$keyword,$content); 
+        return $content; 
+    }
