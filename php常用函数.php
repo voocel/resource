@@ -418,6 +418,28 @@ function ArrMd2Ud($arr) {
         return $content; 
     }
     
+    /**
+     * 遍历一个文件夹下的所有文件和子文件夹
+     */
+    function my_scandir($dir){
+        $files = array();
+        if (is_dir($dir)) {
+            if ($handle = opendir($dir)) {
+                while (($file = readdir($handle)) !== false) {
+                    if ($file != "." && $file != "..") {
+                        if (is_dir($dir . "/" . $file)) {
+                            $files[$file] = my_scandir($dir . "/" . $file);
+                        } else {
+                            $files[] = $dir . "/" . $file;
+                        }
+                    }
+                }
+                closedir($handle);
+                return $files;
+            }
+        }
+    }
+    
     usleep() 函数延迟代码执行若干微秒。
     unpack() 函数从二进制字符串对数据进行解包。
     uniqid() 函数基于以微秒计的当前时间，生成一个唯一的 ID。
