@@ -8,9 +8,15 @@ class FlexiHash
 
     /**
      * 生成hash
+     * 原理：hash(i) = hash(i-1) * 33 + str[i]
      */
     public function cHash($str){
-        return sprintf('%u',crc32($str));
+        // return sprintf('%u',crc32($str));
+        $hash = 0;
+        for ($i=0; $i < 32; $i++) { 
+            $hash = ($hash << 5) + $hash + ord(md5($str){$i});
+        }
+        return $hash & 0x7FFFFFFF;
     }
 
     /**
