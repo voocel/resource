@@ -171,3 +171,5 @@ LoadModule php7_module E:/wnmp/php/php7apache2_4.dll
 重启Apache即可解析php文件了 `httpd.exe -k restart`
 
 *注意:PHP需要是TS版的,因为NTS版没有`php7apache2_4.dll`文件*
+
+*若在开启curl扩展后仍无法加载curl，则需将php目录下的libssh2.dll文件，复制到对应apache的bin文件夹下，再重启apache即可解决*
